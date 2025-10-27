@@ -15,7 +15,7 @@ public class PlayerStatusPanel extends JPanel {
     private HealthBar healthBar;
     
     // Visual constants
-    private static final Color PANEL_BG = new Color(50, 50, 60);
+    private static final Color PANEL_BG = new Color(218, 177, 218);
     private static final Color HEALTH_BAR_BG = new Color(40, 40, 50);
     private static final Color HEALTH_BAR_FULL = new Color(50, 205, 50);
     private static final Color HEALTH_BAR_MED = new Color(255, 165, 0);
@@ -42,7 +42,7 @@ public class PlayerStatusPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBackground(PANEL_BG);
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.CYAN, 2),
+            BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
         
@@ -59,11 +59,11 @@ public class PlayerStatusPanel extends JPanel {
         
         JLabel titleLabel = new JLabel("PLAYER", SwingConstants.LEFT);
         titleLabel.setFont(TITLE_FONT);
-        titleLabel.setForeground(Color.CYAN);
+        titleLabel.setForeground(Color.BLACK);
         
         healthLabel = new JLabel(currentHealth + " / " + maxHealth + " HP", SwingConstants.RIGHT);
         healthLabel.setFont(HEALTH_FONT);
-        healthLabel.setForeground(Color.WHITE);
+        healthLabel.setForeground(Color.BLACK);
         
         titlePanel.add(titleLabel, BorderLayout.WEST);
         titlePanel.add(healthLabel, BorderLayout.EAST);
@@ -130,7 +130,7 @@ public class PlayerStatusPanel extends JPanel {
         public HealthBar() {
             setPreferredSize(new Dimension(0, BAR_HEIGHT));
             setBackground(HEALTH_BAR_BG);
-            setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         }
         
         @Override
@@ -168,7 +168,7 @@ public class PlayerStatusPanel extends JPanel {
             
             // Draw percentage text
             String percentText = String.format("%.0f%%", healthPercent * 100);
-            g2d.setColor(Color.WHITE);
+            g2d.setColor(Color.BLACK);
             g2d.setFont(new Font("Arial", Font.BOLD, 14));
             FontMetrics fm = g2d.getFontMetrics();
             int textWidth = fm.stringWidth(percentText);

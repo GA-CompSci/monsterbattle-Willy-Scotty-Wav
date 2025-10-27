@@ -19,7 +19,7 @@ public class MonsterDisplayPanel extends JPanel {
     private int highlightedIndex = -1;
     
     // Visual constants
-    private static final Color BACKGROUND_COLOR = new Color(40, 40, 50);
+    private static final Color BACKGROUND_COLOR = new Color(218, 177, 218);
     private static final int TILE_SPACING = 10;
     
     /**
@@ -30,9 +30,9 @@ public class MonsterDisplayPanel extends JPanel {
         tiles = new ArrayList<>();
         setBackground(BACKGROUND_COLOR);
         setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(Color.CYAN, 2),
+            BorderFactory.createLineBorder(Color.BLACK, 2),
             "MONSTERS",
-            0, 0, new Font("Arial", Font.BOLD, 16), Color.CYAN));
+            0, 0, new Font("Arial", Font.BOLD, 16), Color.BLACK));
     }
     
     /**

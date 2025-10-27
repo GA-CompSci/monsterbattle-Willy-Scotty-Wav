@@ -13,8 +13,8 @@ public class MessagePanel extends JPanel {
     private JLabel currentMessageLabel;
     
     // Visual constants
-    private static final Color PANEL_BG = new Color(30, 30, 40);
-    private static final Color TEXT_COLOR = Color.WHITE;
+    private static final Color PANEL_BG = new Color(218, 177, 218);
+    private static final Color TEXT_COLOR = Color.BLACK;
     private static final Color PREVIOUS_TEXT_COLOR = new Color(180, 180, 180);
     private static final Font MESSAGE_FONT = new Font("Arial", Font.BOLD, 16);
     private static final Font PREVIOUS_FONT = new Font("Arial", Font.PLAIN, 14);
@@ -28,7 +28,7 @@ public class MessagePanel extends JPanel {
         setPreferredSize(new Dimension(0, PANEL_HEIGHT));
         setBackground(PANEL_BG);
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.CYAN, 2),
+            BorderFactory.createLineBorder(Color.BLACK, 2),
             BorderFactory.createEmptyBorder(8, 15, 8, 15)
         ));
         

@@ -20,9 +20,9 @@ public class ActionButtonPanel extends JPanel {
     };
     
     // Visual constants
-    private static final Color BUTTON_BG = new Color(70, 130, 180);
-    private static final Color BUTTON_HOVER = new Color(100, 149, 237);
-    private static final Color BUTTON_PRESSED = new Color(50, 100, 150);
+    private static final Color BUTTON_BG = new Color(0, 0, 0);
+    private static final Color BUTTON_HOVER = new Color(10, 10, 10);
+    private static final Color BUTTON_PRESSED = new Color(50, 50, 50);
     private static final Color BUTTON_DISABLED = new Color(100, 100, 100);
     private static final Font BUTTON_FONT = new Font("Arial", Font.BOLD, 16);
     

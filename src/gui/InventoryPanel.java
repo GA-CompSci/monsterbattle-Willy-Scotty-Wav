@@ -17,8 +17,8 @@ public class InventoryPanel extends JPanel {
     private JPanel itemListPanel;
     
     // Visual constants
-    private static final Color PANEL_BG = new Color(50, 50, 60);
-    private static final Color ITEM_BG = new Color(70, 70, 80);
+    private static final Color PANEL_BG = new Color(218, 177, 218);
+    private static final Color ITEM_BG = new Color(0, 0, 0);
     private static final Font ITEM_FONT = new Font("Arial", Font.PLAIN, 14);
     private static final int PANEL_WIDTH = 200;
     
@@ -34,7 +34,7 @@ public class InventoryPanel extends JPanel {
         // Title
         JLabel titleLabel = new JLabel("INVENTORY", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        titleLabel.setForeground(Color.CYAN);
+        titleLabel.setForeground(Color.BLACK);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
         add(titleLabel, BorderLayout.NORTH);
         
