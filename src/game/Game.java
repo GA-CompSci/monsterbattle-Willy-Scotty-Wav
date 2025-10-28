@@ -59,7 +59,16 @@ public class Game {
         int numMonsters = chooseDifficulty();
         monsters = new ArrayList<>();
         //should we add special abilitys
-        for (int k = 0; k < numMonsters; k++) monsters.add(new Monster());
+        for (int k = 0; k < numMonsters; k++){
+            if(k == 0){
+                //add a special monster
+                monsters.add(new Monster("Hydra"));
+            }
+            else{
+                 monsters.add(new Monster());
+            }
+            
+        }
         gui.updateMonsters(monsters);   
         // PICK YOUR CHARACTER BUILD (using the 4 action buttons!)
         pickCharacterBuild();
@@ -72,7 +81,10 @@ public class Game {
         gui.updateInventory(inventory);
         
         // TODO: Customize button labels
-        String[] buttons = {"Attack", "Defend", "Heal", "Use Item"};
+        String[] buttons = {"Attack [" + playerDamage + "]", 
+                            "Defend [" + playerShield + "]", 
+                            "Heal [" + playerHeal + "]", 
+                            "Use Item"};
         gui.setActionButtons(buttons);
         
         // Welcome message
@@ -195,7 +207,7 @@ public class Game {
         }
         
         gui.setPlayerMaxHealth(playerHealth);
-        gui.updatePlayerHealth(playerHeal);
+        gui.updatePlayerHealth(playerHealth);
         // Pause to let player see their choice
         gui.pause(1500);
     }
@@ -231,10 +243,31 @@ public class Game {
      * - Special effects?
      */
     private void attackMonster() {
-        // TODO: Implement your attack!
-        // Hint: Look at GameDemo.java for an example
-        
-        gui.displayMessage("TODO: Implement attack!");
+        //work on better targeting
+        Monster target = getRandomLivingMonster();
+        int damage = (int)(Math.random() * playerDamage + 1);
+        if(damage == 0){
+            //hurt self
+            playerHealth -= 5;
+            gui.displayMessage("Critical Fail! You Hit Yourself for 5 Damage");
+            gui.updatePlayerHealth(playerHealth);
+        }
+        else if (damage == playerDamage){
+            gui.displayMessage("Critical Hit! You Slayed The Monster");
+            target.takeDamage(target.health());
+
+        }
+        else{
+            target.takeDamage(damage);
+            gui.displayMessage("You Hit The Monster For " + damage + "Damage");
+        }
+         // Show which one we hit
+        int index = monsters.indexOf(target);
+        gui.highlightMonster(index);
+        gui.pause(300);
+        gui.highlightMonster(-1);
+        //update list
+        gui.updateMonsters(monsters);
     }
     
     /**
@@ -308,6 +341,26 @@ public class Game {
         return count;
     }
     
+    private ArrayList <Monster> getSpecialMonsters(){
+        ArrayList<Monster> result = new ArrayList<>();
+        for(Monster m : monsters){
+            if(m.special() != null && !m.special().equals("") && m.health > 0){
+                result.add(m);
+            }
+        }
+        return result;
+    }
+
+    private ArrayList<Monsters> getSpeedyMonsters(){
+         ArrayList<Monster> result = new ArrayList<>();
+        for(Monster m : monsters){
+            if(m.speed < playerSpeed && m.health > 0){
+                result.add(m);
+            }
+        }
+        return result;
+    }
+
     /**
      * Get a random living monster
      */
