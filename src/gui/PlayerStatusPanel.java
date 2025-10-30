@@ -15,7 +15,7 @@ public class PlayerStatusPanel extends JPanel {
     private HealthBar healthBar;
     
     // Visual constants
-    private static final Color PANEL_BG = new Color(218, 177, 218);
+    private static final Color PANEL_BG = new Color(187, 124, 235);
     private static final Color HEALTH_BAR_BG = new Color(40, 40, 50);
     private static final Color HEALTH_BAR_FULL = new Color(50, 205, 50);
     private static final Color HEALTH_BAR_MED = new Color(255, 165, 0);

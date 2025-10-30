@@ -17,7 +17,7 @@ public class InventoryPanel extends JPanel {
     private JPanel itemListPanel;
     
     // Visual constants
-    private static final Color PANEL_BG = new Color(218, 177, 218);
+    private static final Color PANEL_BG = new Color(187, 124, 235);
     private static final Color ITEM_BG = new Color(0, 0, 0);
     private static final Font ITEM_FONT = new Font("Arial", Font.PLAIN, 14);
     private static final int PANEL_WIDTH = 200;

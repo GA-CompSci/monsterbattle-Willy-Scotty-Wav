@@ -23,6 +23,8 @@ public class Game {
     
     // Game state - YOU manage these
     private ArrayList<Monster> monsters;
+    private Monster lastAttacked; // store last attacked monster so it can respond   
+    private boolean shieldUp = false;
     private ArrayList<Item> inventory;
     private int playerHealth;
     private int playerSpeed;
@@ -100,6 +102,7 @@ public class Game {
     private void gameLoop() {
         // Keep playing while monsters alive and player alive
         while (countLivingMonsters() > 0 && playerHealth > 0) {
+            shieldUp = false;
             
             // PLAYER'S TURN
             gui.displayMessage("Your turn! HP: " + playerHealth);
@@ -193,7 +196,7 @@ public class Game {
             // Tank: high shield, low damage and speed
             gui.displayMessage("You chose Tank! Tough defense, but slow attacks.");
             playerSpeed -= (int)(Math.random() * 9) + 1;        // Reduce speed by 1-9
-            playerDamage -= (int)(Math.random() * 40) + 100;   // Reduce damage by 100-199
+            playerDamage -= (int)(Math.random() * 21) + 1;   // Reduce damage by 100-199
         } else if (choice == 2) {
             // Healer: high healing, low damage and shield
             gui.displayMessage("You chose Healer! Great recovery, but fragile.");
@@ -245,6 +248,7 @@ public class Game {
     private void attackMonster() {
         //work on better targeting
         Monster target = getRandomLivingMonster();
+        lastAttacked = target;
         int damage = (int)(Math.random() * playerDamage + 1);
         if(damage == 0){
             //hurt self
@@ -279,9 +283,10 @@ public class Game {
      * - Something else?
      */
     private void defend() {
+        shieldUp = true;
         // TODO: Implement your defend!
         
-        gui.displayMessage("TODO: Implement defend!");
+        gui.displayMessage("Your Shield Is Up");
     }
     
     /**
@@ -321,10 +326,28 @@ public class Game {
      * - Special abilities?
      */
     private void monsterAttack() {
-        // TODO: Implement monster attacks!
-        // Hint: Look at GameDemo.java for an example
+        ArrayList<Monster> attackers = getSpeedyMonsters();
+        if( lastAttacked.health() > 0 && !attackers.contains(lastAttacked)) ;
+        attackers.add(lastAttacked);
+
+        for(Monster m : attackers){
+            double incomingDamage = m.damage();
+            playerHealth -= m.damage();
+            //todo fin logic for reapeated shield hits
+            if(shieldUp){
+                incomingDamage -= playerShield;
+                gui.displayMessage( "You Blocked For " + playerShield + "Damage")
+            }
+            else{
+
+            }
+            // todo check for shield
+            int index = monsters.indexOf(m);
+            gui.highlightMonster(index);
+            gui.pause(300);
+            gui.highlightMonster(-1);
+        }
         
-        gui.displayMessage("TODO: Implement monster attack!");
     }
     
     // ==================== HELPER METHODS ====================
@@ -373,10 +396,4 @@ public class Game {
         return alive.get((int)(Math.random() * alive.size()));
     }
     
-    // TODO: Add more helper methods as you need them!
-    // Examples:
-    // - Method to find the strongest monster
-    // - Method to check if player has a specific item
-    // - Method to add special effects
-    // - etc.
 }

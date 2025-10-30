@@ -13,7 +13,7 @@ public class MessagePanel extends JPanel {
     private JLabel currentMessageLabel;
     
     // Visual constants
-    private static final Color PANEL_BG = new Color(218, 177, 218);
+    private static final Color PANEL_BG = new Color(187, 124, 235);
     private static final Color TEXT_COLOR = Color.BLACK;
     private static final Color PREVIOUS_TEXT_COLOR = new Color(180, 180, 180);
     private static final Font MESSAGE_FONT = new Font("Arial", Font.BOLD, 16);
