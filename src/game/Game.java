@@ -32,6 +32,7 @@ public class Game {
     private int playerDamage;
     private int playerHeal;
     private int playerShield;
+    private int maxHealth;
 
     /**
      * Main method - start YOUR game!
@@ -63,10 +64,15 @@ public class Game {
         monsters = new ArrayList<>();
         // should we add special abilitys
         for (int k = 0; k < numMonsters; k++) {
-            if (k == 0) {
+            int specialRand = (int)(Math.random()*8) +1;
+            if (specialRand == 2) {
                 // add a special monster
                 monsters.add(new Monster("Vampire"));
-            } else {
+            } else if (specialRand == 4){
+                monsters.add(new Monster("Poison"));
+            } else if (specialRand == 6){
+                monsters.add(new Monster("Equalizer"));
+            } else{
                 monsters.add(new Monster());
             }
 
@@ -77,7 +83,10 @@ public class Game {
 
         // TODO: Create starting items
         inventory = new ArrayList<>();
-        // Add items here! Look at GameDemo.java for examples
+        inventory = new ArrayList<>();
+        addHealthPotion(50);
+        addHealthPotion(50);
+        addBomb(30);
         gui.updateInventory(inventory);
 
         // TODO: Customize button labels
@@ -193,7 +202,7 @@ public class Game {
         } else if (choice == 1) {
             // Tank: high shield, low damage and speed
             gui.displayMessage("You chose Tank! Tough defense, but slow attacks.");
-            playerSpeed = (int) (Math.random() * 7) + 1; // calc speed by 1-10
+            playerSpeed = (int) (Math.random() * 5) + 1; // calc speed by 1-10
             playerDamage -= (int) (Math.random() * 21) + 1; // Reduce damage by 100-199
         } else if (choice == 2) {
             // Healer: high healing, low damage and shield
@@ -320,7 +329,7 @@ public class Game {
      */
     private void monsterAttack() {
         // BUILD A LIST OF MONSTERS THAT WILL ATTACK US
-        ArrayList<Monster> attackers = new ArrayList<>();
+        ArrayList<Monster> attackers = getSpeedyMonsters();
         if (lastAttacked != null && lastAttacked.health() > 0 && !attackers.contains(lastAttacked))
             ;
         attackers.add(lastAttacked);
@@ -334,7 +343,8 @@ public class Game {
                     m.heal((int) incomingDamage);
                     gui.displayMessage("Your health has been Taken! The monster healed for: " + incomingDamage + "!");
                 } else if (m.special().equals("Poison")) {
-                    // TODO: Add poison effect that damages over time
+                    playerHealth -= 2;
+                    gui.displayMessage("You have been Poisoned!");
                 } else if (m.special().equals("Equalizer")) {
                     if (m.health() < 10)
                         incomingDamage += 20;
@@ -413,4 +423,27 @@ public class Game {
         if (alive.isEmpty()) return null;
         return alive.get((int)(Math.random() * alive.size()));
     }
+    private void addHealthPotion(int healAmount) {
+        inventory.add(new Item("Health Potion", "🧪", () -> {
+            playerHealth = Math.min(maxHealth, playerHealth + healAmount);
+            gui.updatePlayerHealth(playerHealth);
+            gui.displayMessage("💚 Used Health Potion! Healed " + healAmount + " HP!");
+        }));
+    }
+    
+    /**
+     * Add a bomb to inventory (damages all monsters)
+     */
+    private void addBomb(int damage) {
+        inventory.add(new Item("Bomb", "💣", () -> {
+            for (Monster m : monsters) {
+                if (m.health() > 0) {
+                    m.takeDamage(damage);
+                }
+            }
+            gui.displayMessage("💣 BOOM! All monsters take " + damage + " damage!");
+            gui.updateMonsters(monsters);
+        }));
+    }
 }
+

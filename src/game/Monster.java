@@ -11,11 +11,10 @@ public class Monster {
         // randomly generate health, damage, speed
         health = (int)(Math.random() * 80 + 1) + 20;
         // random 10 - 50
-        damage = (Math.random() * 21) + 5; // 5-25
+        damage = (Math.random() * 11) + 1; // 1-15
         // speed: random 1-10
         speed = (int)(Math.random() * 10) + 1;
         // by default, the monster doesn't have a special move
-        special = "";
     }
     // OVERLOADED CONSTRUCTOR
     public Monster(String special){
