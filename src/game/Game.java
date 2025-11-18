@@ -52,27 +52,26 @@ public class Game {
 
     /**
      * Setup - create the GUI and initial game state
-     * 
-     * TODO: Customize this! How many monsters? What items? How much health?
      */
     private void setupGame() {
         // Create the GUI
-        gui = new MonsterBattleGUI("Monster Battle - Mr A");
+        gui = new MonsterBattleGUI("Monster Battle - Big Willy Style");
 
         // CHOOSE DIFFICULTY (number of monsters to face)
         int numMonsters = chooseDifficulty();
         monsters = new ArrayList<>();
         // should we add special abilitys
         for (int k = 0; k < numMonsters; k++) {
-            int specialRand = (int)(Math.random()*8) +1;
+
+            int specialRand = (int) (Math.random() * 8) + 1;
             if (specialRand == 2) {
                 // add a special monster
                 monsters.add(new Monster("Vampire"));
-            } else if (specialRand == 4){
+            } else if (specialRand == 4) {
                 monsters.add(new Monster("Poison"));
-            } else if (specialRand == 6){
+            } else if (specialRand == 6) {
                 monsters.add(new Monster("Equalizer"));
-            } else{
+            } else {
                 monsters.add(new Monster());
             }
 
@@ -81,16 +80,15 @@ public class Game {
         // PICK YOUR CHARACTER BUILD (using the 4 action buttons!)
         pickCharacterBuild();
 
-        // TODO: Create starting items
-        inventory = new ArrayList<>();
         inventory = new ArrayList<>();
         addHealthPotion(50);
         addHealthPotion(50);
         addBomb(30);
+        addBomb(30);
         gui.updateInventory(inventory);
 
-        // TODO: Customize button labels
-        String[] buttons = { "Attack [" + playerDamage + "]",
+        String[] buttons = { 
+                "Attack [" + playerDamage + "]",
                 "Defend [" + playerShield + "]",
                 "Heal [" + playerHeal + "]",
                 "Use Item" };
@@ -151,20 +149,20 @@ public class Game {
         int numMonsters = 0;
         switch (choice) {
             case 0:
-                numMonsters = (int) (Math.random() * (4 - 2 + 1)) + 2;
+                numMonsters = (int) (Math.random() * (2 + 1)) + 3; // 2-4
                 break;
             case 1:
-                numMonsters = (int) (Math.random() * (5 - 4 + 1)) + 4;
+                numMonsters = (int) (Math.random() * (1 + 1)) + 4; // 4-5
                 break;
             case 2:
-                numMonsters = (int) (Math.random() * (8 - 6 + 1)) + 6;
+                numMonsters = (int) (Math.random() * (2 + 1)) + 6; // 6-8
                 break;
             case 3:
-                numMonsters = (int) (Math.random() * (15 - 10 + 1)) + 10;
+                numMonsters = (int) (Math.random() * (5 + 1)) + 10; // 10 - 15
                 break;
         }
 
-        gui.displayMessage("You Will Face: " + numMonsters + " Monsters! I Wish You Luck.");
+        gui.displayMessage("You will face " + numMonsters + " monsters! I wish you luck.");
         gui.pause(1500);
 
         return numMonsters;
@@ -196,25 +194,26 @@ public class Game {
         if (choice == 0) {
             // Fighter: high damage, low healing and shield
             gui.displayMessage("You chose Fighter! High damage, but weak defense.");
-            playerShield -= (int) (Math.random() * 25 + 1) + 5; // Reduce shield by 6-30
+            playerShield -= (int) (Math.random() * 15 + 1) + 5; // Reduce shield by 6-30
             playerHeal -= (int) (Math.random() * 20) + 5; // Reduce heal by 5-30
             playerSpeed = (int) (Math.random() * 3) + 5; // calc speed by 1-10
         } else if (choice == 1) {
             // Tank: high shield, low damage and speed
             gui.displayMessage("You chose Tank! Tough defense, but slow attacks.");
             playerSpeed = (int) (Math.random() * 5) + 1; // calc speed by 1-10
-            playerDamage -= (int) (Math.random() * 21) + 1; // Reduce damage by 100-199
+            playerDamage = (int) (Math.random() * 21) + 60; // Reduce damage by 100-199
         } else if (choice == 2) {
             // Healer: high healing, low damage and shield
             gui.displayMessage("You chose Healer! Great recovery, but fragile.");
-            playerDamage -= (int) (Math.random() * 21) + 5; // Reduce damage by 5-30
-            playerShield -= (int) (Math.random() * 21) + 5; // Reduce shield by 5-50
+            playerDamage -= (int) (Math.random() * 21) + 5; // Reduce damage by 5-25
+            playerShield -= (int) (Math.random() * 21) + 5; // Reduce shield by 5-25
             playerSpeed = (int) (Math.random() * 5) + 4; // calc speed by 4-8
+            playerHeal = (int) (Math.random() * 11) + 50;
         } else {
             // Ninja: high speed, low healing and health
             gui.displayMessage("You chose Ninja! Fast and deadly, but risky.");
             playerHeal -= (int) (Math.random() * 20) + 5; // Reduce heal by 5-50
-            playerHealth -= (int) (Math.random() * 21) + 5; // Reduce max health by 5-25
+            playerHealth -= (int) (Math.random() * 11) + 10; // Reduce max health by 5-25
             playerSpeed = (int) (Math.random() * 5) + 7; // calc speed by 6-11
         }
         if (playerHeal < 0)
@@ -297,7 +296,7 @@ public class Game {
     }
 
     private void heal() {
-        playerHeal += playerHeal;
+        playerHealth += playerHeal;
         gui.updatePlayerHealth(playerHealth);
         gui.displayMessage("You Healed For " + playerHeal + " HP");
 
@@ -338,7 +337,7 @@ public class Game {
             double incomingDamage = m.damage(); // Maybe use Math.random() to vary damage
 
             // CHECK FOR SPECIALS
-            if (!m.special().isEmpty()) {
+            if (m.special() != null && !m.special().isEmpty()) {
                 if (m.special().equals("Vampire")) {
                     m.heal((int) incomingDamage);
                     gui.displayMessage("Your health has been Taken! The monster healed for: " + incomingDamage + "!");
@@ -358,7 +357,7 @@ public class Game {
             }
             // todo fin logic for reapeated shield hits
             if (shieldPower > 0) {
-                shieldPower = Math.min((int)incomingDamage, shieldPower);
+                shieldPower = Math.min((int) incomingDamage, shieldPower);
                 gui.displayMessage("You Blocked For " + incomingDamage + "Damage");
             }
             if (incomingDamage > 0) {
@@ -405,7 +404,7 @@ public class Game {
     private ArrayList<Monster> getSpeedyMonsters() {
         ArrayList<Monster> result = new ArrayList<>();
         for (Monster m : monsters) {
-            if (m.speed() < playerSpeed && m.health() > 0) {
+            if (m.speed() > playerSpeed && m.health() > 0) {
                 result.add(m);
             }
         }
@@ -418,19 +417,23 @@ public class Game {
     private Monster getRandomLivingMonster() {
         ArrayList<Monster> alive = new ArrayList<>();
         for (Monster m : monsters) {
-            if (m.health() > 0) alive.add(m);
+            if (m.health() > 0)
+                alive.add(m);
         }
-        if (alive.isEmpty()) return null;
-        return alive.get((int)(Math.random() * alive.size()));
+        if (alive.isEmpty())
+            return null;
+        return alive.get((int) (Math.random() * alive.size()));
     }
+
     private void addHealthPotion(int healAmount) {
         inventory.add(new Item("Health Potion", "🧪", () -> {
-            playerHealth = Math.min(maxHealth, playerHealth + healAmount);
+            playerHealth += healAmount;
+            if(playerHealth > 100) playerDamage = 100;
             gui.updatePlayerHealth(playerHealth);
             gui.displayMessage("💚 Used Health Potion! Healed " + healAmount + " HP!");
         }));
     }
-    
+
     /**
      * Add a bomb to inventory (damages all monsters)
      */
@@ -446,4 +449,3 @@ public class Game {
         }));
     }
 }
-

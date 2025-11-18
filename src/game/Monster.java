@@ -4,14 +4,14 @@ public class Monster {
     private int health;
     private double damage;
     private int speed;
-    private String special; 
+    private String special = ""; 
 
     // CONSTRUCTOR
     public Monster(){
         // randomly generate health, damage, speed
-        health = (int)(Math.random() * 80 + 1) + 20;
+        health = (int)(Math.random() * 60 + 1) + 20;
         // random 10 - 50
-        damage = (Math.random() * 11) + 1; // 1-15
+        damage = (Math.random() * 6) + 1; // 1-5
         // speed: random 1-10
         speed = (int)(Math.random() * 10) + 1;
         // by default, the monster doesn't have a special move
