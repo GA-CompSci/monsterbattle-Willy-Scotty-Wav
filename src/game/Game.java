@@ -55,7 +55,7 @@ public class Game {
      */
     private void setupGame() {
         // Create the GUI
-        gui = new MonsterBattleGUI("Monster Battle - Big Willy Style");
+        gui = new MonsterBattleGUI("Monster Battle - Version.Braki");
 
         // CHOOSE DIFFICULTY (number of monsters to face)
         int numMonsters = chooseDifficulty();
@@ -202,6 +202,7 @@ public class Game {
             gui.displayMessage("You chose Tank! Tough defense, but slow attacks.");
             playerSpeed = (int) (Math.random() * 5) + 1; // calc speed by 1-10
             playerDamage = (int) (Math.random() * 21) + 60; // Reduce damage by 100-199
+            playerHealth += (int) (Math.random() * 31) + 5;
         } else if (choice == 2) {
             // Healer: high healing, low damage and shield
             gui.displayMessage("You chose Healer! Great recovery, but fragile.");
@@ -375,6 +376,7 @@ public class Game {
         }
 
     }
+    
 
     // ==================== HELPER METHODS ====================
     // Add your own helper methods here!
