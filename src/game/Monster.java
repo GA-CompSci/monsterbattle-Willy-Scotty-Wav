@@ -11,7 +11,7 @@ public class Monster {
         // randomly generate health, damage, speed
         health = (int)(Math.random() * 60 + 1) + 20;
         // random 10 - 50
-        damage = (Math.random() * 4) + 1; // 1-5
+        damage = (Math.random() * 3) + 2; // 1-5
         // speed: random 1-10
         speed = (int)(Math.random() * 10) + 1;
         // by default, the monster doesn't have a special move

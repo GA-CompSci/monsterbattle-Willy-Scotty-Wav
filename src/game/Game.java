@@ -84,7 +84,6 @@ public class Game {
         addHealthPotion(50);
         addHealthPotion(50);
         addBomb(30);
-        addBomb(30);
         gui.updateInventory(inventory);
 
         String[] buttons = { 
@@ -138,7 +137,7 @@ public class Game {
      */
     private int chooseDifficulty() {
         // Set button labels to difficulty levels
-        String[] difficulties = { "Easy (3-4)", "Medium (4-5)", "Hard (6-8)", "Extreme (10-15)" };
+        String[] difficulties = { "Training (3-4)", "Novice (4-5)", "Challenge (6-8)", "Underworld (10-15)" };
         gui.setActionButtons(difficulties);
 
         // Display choice prompt
@@ -174,7 +173,7 @@ public class Game {
      */
     private void pickCharacterBuild() {
         // Set button labels to character classes
-        String[] characterClasses = { "Fighter", "Tank", "Healer", "Ninja" };
+        String[] characterClasses = { "Warrior", "Brawler", "Mage", "Assasin" };
         gui.setActionButtons(characterClasses);
 
         // Display choice prompt
@@ -193,29 +192,31 @@ public class Game {
         // Customize stats based on character choice
         if (choice == 0) {
             // Fighter: high damage, low healing and shield
-            gui.displayMessage("You chose Fighter! High damage, but weak defense.");
+            gui.displayMessage("You chose Warrior! A well rounded Fighter");
             playerShield -= (int) (Math.random() * 15 + 1) + 5; // Reduce shield by 6-30
             playerHeal -= (int) (Math.random() * 20) + 5; // Reduce heal by 5-30
             playerSpeed = (int) (Math.random() * 3) + 5; // calc speed by 1-10
+            playerDamage -= (int) (Math.random() * 6) + 5; // Reduce damage by 5-25
         } else if (choice == 1) {
             // Tank: high shield, low damage and speed
-            gui.displayMessage("You chose Tank! Tough defense, but slow attacks.");
+            gui.displayMessage("You chose Brawler! Tough defense, powerful but slow attacks.");
             playerSpeed = (int) (Math.random() * 5) + 1; // calc speed by 1-10
             playerDamage = (int) (Math.random() * 21) + 60; // Reduce damage by 100-199
             playerHealth += (int) (Math.random() * 31) + 5;
         } else if (choice == 2) {
             // Healer: high healing, low damage and shield
-            gui.displayMessage("You chose Healer! Great recovery, but fragile.");
+            gui.displayMessage("You chose Mage! Great recovery, but fragile.");
             playerDamage -= (int) (Math.random() * 21) + 5; // Reduce damage by 5-25
             playerShield -= (int) (Math.random() * 21) + 5; // Reduce shield by 5-25
             playerSpeed = (int) (Math.random() * 5) + 4; // calc speed by 4-8
             playerHeal = (int) (Math.random() * 11) + 50;
         } else {
             // Ninja: high speed, low healing and health
-            gui.displayMessage("You chose Ninja! Fast and deadly, but risky.");
-            playerHeal -= (int) (Math.random() * 20) + 5; // Reduce heal by 5-50
+            gui.displayMessage("You chose Assasin! Fast and deadly, but risky.");
+            playerHeal = (int) (Math.random() * 6) + 5; // Reduce heal by 5-50
             playerHealth -= (int) (Math.random() * 11) + 10; // Reduce max health by 5-25
             playerSpeed = (int) (Math.random() * 5) + 7; // calc speed by 6-11
+            playerDamage += (int) (Math.random() * 11) + 10; // calc speed by 6-11
         }
         if (playerHeal < 0)
             playerHeal = 0; // dont let heal go neg
